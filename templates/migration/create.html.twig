@@ -1,0 +1,18 @@
+<!-- templates/migration/create.html.twig -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Создание миграции</title>
+</head>
+<body>
+<h1>Создание миграции</h1>
+<form action="{{ path('create_migration') }}" method="post">
+    <button type="submit">Создать миграцию</button>
+</form>
+<div>
+    <h2>Вывод:</h2>
+    <div>{{ output|raw }}</div>
+</div>
+</body>
+</html>

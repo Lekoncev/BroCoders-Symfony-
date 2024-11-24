@@ -1,0 +1,37 @@
+{# templates/projects.html.twig #}
+<h1>Проекты</h1>
+
+{% if projects is empty %}
+    <p>Проекты не найдены.</p>
+{% else %}
+    <ul>
+        {% for project in projects %}
+            <li>
+                <strong>Проект:</strong> {{ project.name }}<br>
+                <strong>Статус:</strong> {{ project.isClosed ? 'Закрыт' : 'Открыт' }}<br>
+                <strong>Разработчики:</strong>
+                {% if project.developers is empty %}
+                    Нет назначенных разработчиков.
+                {% else %}
+                    <ul>
+                        {% for developer in project.developers %}
+                            <li>{{ developer.name }} {{ developer.surname }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if not project.isClosed %}
+                    <form action="{{ path('project_close', { id: project.id }) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-warning">Закрыть проект</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<div class="mt-3">
+    <a href="{{ path('project_add') }}" class="btn btn-success">Создать новый проект</a>
+    <br>
+    <a href="{{ path('home') }}" class="btn btn-info">Вернуться на главную страницу</a>
+</div>

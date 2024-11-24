@@ -1,0 +1,18 @@
+<!-- templates/migration/apply.html.twig -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Применение миграции</title>
+</head>
+<body>
+<h1>Применение миграции</h1>
+<form action="{{ path('apply_migration') }}" method="post">
+    <button type="submit">Применить миграции</button>
+</form>
+<div>
+    <h2>Вывод:</h2>
+    <div>{{ output|raw }}</div>
+</div>
+</body>
+</html>

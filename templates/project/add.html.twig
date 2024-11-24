@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Добавить новый проект</h1>
+
+    <p>Пожалуйста, заполните форму ниже, чтобы добавить новый проект.</p>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success">Добавить проект</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('projects_list') }}" class="btn btn-secondary">Вернуться к списку проектов</a>
+
+    {# Отображение ошибок валидации #}
+    {% if form.vars.errors|length > 0 %}
+        <div class="alert alert-danger mt-3">
+            <strong>Обнаружены ошибки:</strong>
+            <ul>
+                {% for error in form.vars.errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Добавить разработчика</h1>
+
+    <p>Пожалуйста, заполните форму ниже, чтобы добавить нового разработчика в систему.</p>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success">Добавить разработчика</button>
+    {{ form_end(form) }}
+
+    <p><a href="{{ path('developers_list') }}" class="btn btn-secondary">Вернуться к списку разработчиков</a></p>
+
+    {# Отображение ошибок валидации #}
+    {% if form.vars.errors|length > 0 %}
+        <div class="alert alert-danger">
+            <strong>Обнаружены ошибки:</strong>
+            <ul>
+                {% for error in form.vars.errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
