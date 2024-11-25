@@ -1,15 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Редактирование/Перемещение на другой проект</h1>
+    <h1>Перемещение разработчика на другой проект</h1>
 
-    <p>Пожалуйста, заполните форму ниже, чтобы Редактировать/Переместить на другой проект.</p>
+    <p>Пожалуйста, проверьте информацию ниже и выберите новый проект для разработчика.</p>
+    <form action="{{ path('developer_transfer', {'id': developer.id}) }}" method="post">
+    <div class="form-group">
+        {% for field in ['name', 'surname', 'fullname', 'birthdate', 'position', 'email', 'phone', 'projects'] %}
+            <div class="form-group">
+                {{ form_label(form[field], null, {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form[field], {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form[field]) }}
+            </div>
+        {% endfor %}
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-success">Передать разработчика</button>
-    {{ form_end(form) }}
-
+    <button type="submit" class="btn btn-success">Переместить разработчика</button>
+    </form>
     <p><a href="{{ path('developers_list') }}" class="btn btn-secondary">Вернуться к списку разработчиков</a></p>
 
     {# Отображение ошибок валидации #}

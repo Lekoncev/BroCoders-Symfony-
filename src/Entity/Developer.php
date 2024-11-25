@@ -6,6 +6,7 @@ use App\Repository\DeveloperRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DeveloperRepository::class)]
 class Developer
@@ -25,6 +26,9 @@ class Developer
 
     #[ORM\Column(length: 255)]
     private ?string $fullname = null;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $birthdate = null;
 
     #[ORM\Column(length: 255, nullable: false)]
     #[Assert\NotBlank(message: "Должность не должна быть пустой.")]
@@ -111,6 +115,17 @@ class Developer
         return $this;
     }
 
+    public function setBirthdate(?string $birthdate): static
+    {
+        $this->birthdate = $birthdate;
+        return $this;
+    }
+
+    public function getBirthdate(): ?string
+    {
+        return $this->birthdate;
+    }
+
     public function getPosition(): ?string
     {
         return $this->position;
@@ -159,7 +174,7 @@ class Developer
     {
         if (!$this->projects->contains($project)) {
             $this->projects->add($project);
-            $project->addDeveloper($this); // Обратная связь
+            $project->addDeveloper($this);
         }
 
         return $this;
@@ -168,9 +183,20 @@ class Developer
     public function removeProject(Project $project): static
     {
         if ($this->projects->removeElement($project)) {
-            $project->removeDeveloper($this); // Обратная связь
+            $project->removeDeveloper($this);
         }
 
         return $this;
     }
+
+    public function getAge(): int
+    {
+        if ($this->birthdate) {
+            $now = new \DateTime();
+            return $now->diff($this->birthdate)->y;
+        }
+        // Возраст 0, если дата рождения не установлена
+        return 0;
+    }
+
 }

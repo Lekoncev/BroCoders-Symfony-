@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Статистика</h1>
+
+    <div>
+        <h2>Общая информация</h2>
+        <p>Количество проектов: {{ total_projects }}</p>
+        <p>Количество сотрудников: {{ total_developers }}</p>
+        <p>Средний возраст сотрудников: {{ average_age }} лет</p>
+    </div>
+
+    <div>
+        <h2>Количество сотрудников по проектам</h2>
+        <ul>
+            {% for project in projects_with_developer_count %}
+                <li>{{ project.project_name }}: {{ project.developer_count }} сотрудников</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <h2>Статус проектов</h2>
+        <p>Закрытые проекты: {{ closed_projects }}</p>
+        <p>Открытые проекты: {{ open_projects }}</p>
+    </div>
+
+    <a href="{{ path('home') }}" class="btn btn-info">Вернуться на главную страницу</a>
+{% endblock %}

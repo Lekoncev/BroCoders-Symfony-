@@ -7,10 +7,11 @@
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
+    <br>
     <button class="btn btn-success">Добавить проект</button>
     {{ form_end(form) }}
-
-    <a href="{{ path('projects_list') }}" class="btn btn-secondary">Вернуться к списку проектов</a>
+    <br>
+    <a href="{{ path('projects_list') }}" class="btn btn-secondary mt-3">Вернуться к списку проектов</a>
 
     {# Отображение ошибок валидации #}
     {% if form.vars.errors|length > 0 %}

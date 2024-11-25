@@ -87,7 +87,7 @@ class Project
     {
         if (!$this->developers->contains($developer)) {
             $this->developers->add($developer);
-            $developer->addProject($this); // Обратная связь
+            $developer->addProject($this);
         }
 
         return $this;
@@ -96,7 +96,7 @@ class Project
     public function removeDeveloper(Developer $developer): static
     {
         if ($this->developers->removeElement($developer)) {
-            $developer->removeProject($this); // Обратная связь
+            $developer->removeProject($this);
         }
 
         return $this;

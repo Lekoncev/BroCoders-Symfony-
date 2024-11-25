@@ -22,9 +22,9 @@ class ProjectType extends AbstractType
             ])
             ->add('developers', EntityType::class, [
                 'class' => Developer::class,
-                'choice_label' => 'name', // или любое другое поле, которое вы хотите отобразить
+                'choice_label' => 'name',
                 'multiple' => true,
-                'expanded' => true, // если хотите отобразить в виде чекбоксов
+                'expanded' => true,
             ]);
     }
 

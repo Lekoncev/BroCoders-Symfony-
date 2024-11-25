@@ -1,9 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Редактировать разработчика</h1>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Сохранить</button>
-    {{ form_end(form) }}
+    <h1>Редактировать разраотчика</h1>
+    <form action="{{ path('developer_edit', {'id': developer.id}) }}" method="post">
+        {% for field in ['name', 'surname', 'fullname', 'birthdate', 'position', 'email', 'phone'] %}
+            <div class="form-group">
+                {{ form_label(form[field], null, {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form[field], {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form[field]) }}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-success">Сохранить</button>
+    </form>
+
+    <p><a href="{{ path('developers_list') }}" class="btn btn-secondary">Вернуться к списку разработчиков</a></p>
+
+    {# Отображение ошибок валидации #}
+    {% if form.vars.errors|length > 0 %}
+        <div class="alert alert-danger">
+            <strong>Обнаружены ошибки:</strong>
+            <ul>
+                {% for error in form.vars.errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 {% endblock %}

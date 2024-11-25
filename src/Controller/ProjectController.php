@@ -51,7 +51,7 @@ class ProjectController extends AbstractController
             return $this->json(['message' => 'Project not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $project->setIsClosed(true); // Закрываем проект
+        $project->setIsClosed(true);
         $entityManager->flush();
 
         return $this->redirectToRoute('projects_list');

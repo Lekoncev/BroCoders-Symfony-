@@ -9,9 +9,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class DeveloperType extends AbstractType
 {
@@ -22,13 +23,24 @@ class DeveloperType extends AbstractType
                 'label' => 'Имя',
                 'help' => 'Введите полное имя разработчика.',
             ])
-            ->add('surname', TextType::class, [ // Новое поле для фамилии
+            ->add('surname', TextType::class, [
                 'label' => 'Фамилия',
                 'help' => 'Введите фамилию разработчика.',
             ])
-            ->add('fullname', TextType::class, [ // Новое поле для отчества
+            ->add('fullname', TextType::class, [
                 'label' => 'Отчество',
                 'help' => 'Введите отчество разработчика.',
+            ])
+            ->add('birthdate', TextType::class, [
+                'label' => 'Дата рождения',
+                'required' => false,
+                'constraints' => [
+                    new NotBlank(['message' => 'Пожалуйста, укажите дату рождения.']),
+                    new DateTime([
+                        'format' => 'd.m.Y',
+                        'message' => 'Дата должна быть в формате дд.мм.гггг.',
+                    ]),
+                ],
             ])
             ->add('position', TextType::class, [
                 'label' => 'Должность',
@@ -56,6 +68,7 @@ class DeveloperType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Developer::class,
+            'projects' => [],
         ]);
     }
 }

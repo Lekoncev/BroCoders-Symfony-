@@ -2,19 +2,23 @@
 
 <ul class="developer-list">
     {% for developer in developers %}
-        <li class="developer-item">
+        <li class="developer-item card p-3 mb-3">
             <strong>Имя:</strong> {{ developer.name }}<br>
-            <strong>Фамилия:</strong> {{ developer.surname }}<br> <!-- Новое поле -->
-            <strong>Отчество:</strong> {{ developer.fullname }}<br> <!-- Новое поле -->
+            <strong>Фамилия:</strong> {{ developer.surname }}<br>
+            <strong>Отчество:</strong> {{ developer.fullname }}<br>
+            <strong>Дата рождения:</strong> {{ developer.birthdate ? developer.birthdate|date('d.m.Y') : 'Не указана' }}<br>
             <strong>Должность:</strong> {{ developer.position }}<br>
             <strong>Email:</strong> {{ developer.email }}<br>
             <strong>Телефон:</strong> {{ developer.phone }}<br>
             <strong>Статус:</strong>
             <span class="{{ developer.isActive ? 'text-success' : 'text-danger' }}">
-            {{ developer.isActive ? 'Активный' : 'Неактивный' }}
+                {{ developer.isActive ? 'Активный' : 'Неактивный' }}
             </span>
             <br>
-            <a href="{{ path('developer_transfer', { id: developer.id }) }}" class="btn btn-primary">Редактирование/Перемещение на другой проект</a>
+            <a href="{{ path('developer_edit', { id: developer.id }) }}" class="btn btn-primary">Редактирование</a>
+            <p>Перейдите по этой ссылке, чтобы редактировать информацию о разработчике или переместить его на другой проект.</p>
+            <br>
+            <a href="{{ path('developer_transfer', { id: developer.id }) }}" class="btn btn-primary">Перемещение на другой проект</a>
             <p>Перейдите по этой ссылке, чтобы редактировать информацию о разработчике или переместить его на другой проект.</p>
             <br>
             <form action="{{ path('developer_fire', { id: developer.id }) }}" method="post" style="display:inline;">
